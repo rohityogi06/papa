@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Happy Birthday Papa 🎂</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #0d1b2a, #1b263b, #415a77);
+
+    overflow:hidden;
+}
+
+/* ===== Banner / Five Walls ===== */
+.banner{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-top:20px;
+    gap:10px;
+}
+
+.wall{
+    background:white;
+    color:#0056b3;
+    font-size:28px;
+    font-weight:700;
+    padding:15px 25px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.3);
+    text-align:center;
+    transition: transform 0.3s;
+    cursor:pointer;
+}
+
+.wall:hover{
+    transform: scale(1.1);
+}
+
+/* ===== Container ===== */
+.container{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:20px;
+}
+
+/* ===== Card ===== */
+.card{
+    background:white;
+    border-radius:25px;
+    max-width:420px;
+    width:100%;
+    text-align:center;
+    padding:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,.35);
+    margin-top:20px;
+    animation:zoom 1s;
+}
+@keyframes zoom{from{transform:scale(.7)}to{transform:scale(1)}}
+
+/* ===== Photo ===== */
+.photo{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    border:4px solid #0056b3;
+    margin:10px auto;
+    background:url('Papa.jpg') center/cover;
+}
+
+/* ===== Text ===== */
+.msg{
+    color:#222;
+    line-height:1.7;
+    font-size:17px;
+    font-weight:500;
+    margin:15px 0;
+    text-align:center;
+}
+
+.heart{
+    font-size:45px;
+    animation:beat 1s infinite;
+}
+@keyframes beat{50%{transform:scale(1.3)}}
+
+/* ===== Cake / Fireworks / Hearts ===== */
+.cake{
+    font-size:70px;
+    cursor:pointer;
+    margin:10px 0;
+}
+
+.firework, .star, .loveHeart{
+    position:absolute;
+    border-radius:50%;
+    opacity:1;
+    pointer-events:none;
+}
+
+/* ===== Signature ===== */
+.signature{
+    margin-top:10px;
+    font-size:17px;
+    color:#0056b3;
+    font-weight:600;
+    letter-spacing:0.5px;
+}
+.signature span{
+    font-size:19px;
+    color:#004494;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== Happy Birthday Banner / Five Walls ===== -->
+<div class="banner">
+    <div class="wall">H</div>
+    <div class="wall">A</div>
+    <div class="wall">P</div>
+    <div class="wall">P</div>
+    <div class="wall">Y</div>
+    <div class="wall">B</div>
+    <div class="wall">I</div>
+    <div class="wall">R</div>
+    <div class="wall">T</div>
+    <div class="wall">H</div>
+    <div class="wall">D</div>
+    <div class="wall">A</div>
+    <div class="wall">Y</div>
+    <div class="wall">D</div>
+    <div class="wall">A</div>
+    <div class="wall">D</div>
+</div>
+
+<audio id="bgm" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+<div class="card">
+
+<div class="photo"></div>
+
+<div class="msg" id="letter"></div>
+
+<div class="cake" onclick="alert('Make a wish Papa! 🎂')">🎂🕯</div>
+
+<div class="heart">❤️</div>
+
+<button id="celebrateBtn">🎆 Celebrate</button>
+
+<p class="signature">— Tumhara beta <span>Rohit</span> ❤️</p>
+
+</div>
+</div>
+
+<script>
+// ===== Typed Heartfelt Letter =====
+let text="Papa, aap meri zindagi ka sabse bada sahara ho 🌟\nAapki muskaan meri duniya hai ✨\nAap hamesha khush rahen, yehi meri dua hai ❤️";
+let i=0;
+function typeLetter(){
+    if(i<text.length){
+        document.getElementById("letter").innerHTML += text.charAt(i)=='\n'?'<br>':text.charAt(i);
+        i++; setTimeout(typeLetter,50);
+    }
+}
+typeLetter();
+
+// ===== Fireworks + Hearts + Stars =====
+function createFirework(){
+    // 25 Fireworks
+    for(let j=0;j<25;j++){
+        let f = document.createElement("div");
+        f.className="firework";
+        let size = Math.random()*12 + 12;
+        f.style.width = size+"px";
+        f.style.height = size+"px";
+        const colors = ["gold","blue","yellow","white","#00bfff"];
+        f.style.background = colors[Math.floor(Math.random()*colors.length)];
+        f.style.left = Math.random()*window.innerWidth+"px";
+        f.style.top = window.innerHeight+"px";
+        f.style.transition="all 1s ease-out";
+        document.body.appendChild(f);
+        setTimeout(()=>{
+            f.style.transform = `translateY(-${Math.random()*350 + 250}px) translateX(${Math.random()*300 - 150}px) scale(1.5)`;
+            f.style.opacity = 0;
+        },10);
+        setTimeout(()=>f.remove(),1200);
+    }
+    
+    // 15 Floating Hearts
+    for(let j=0;j<15;j++){
+        let h = document.createElement("div");
+        h.className="loveHeart";
+        let size = Math.random()*12 + 12;
+        h.style.width = size+"px";
+        h.style.height = size+"px";
+        h.style.background = "red";
+        h.style.borderRadius="50%";
+        h.style.left = Math.random()*window.innerWidth+"px";
+        h.style.top = window.innerHeight+"px";
+        h.style.transition="all 1.5s ease-out";
+        document.body.appendChild(h);
+        setTimeout(()=>{
+            h.style.transform = `translateY(-${Math.random()*400 + 300}px) translateX(${Math.random()*200 - 100}px) scale(1.3)`;
+            h.style.opacity = 0;
+        },10);
+        setTimeout(()=>h.remove(),1500);
+    }
+    
+    // 10 Stars
+    for(let j=0;j<10;j++){
+        let s = document.createElement("div");
+        s.className="star";
+        let size = Math.random()*8 + 8;
+        s.style.width = size+"px";
+        s.style.height = size+"px";
+        const colors = ["yellow","white","#ffea00"];
+        s.style.background = colors[Math.floor(Math.random()*colors.length)];
+        s.style.left = Math.random()*window.innerWidth+"px";
+        s.style.top = window.innerHeight+"px";
+        s.style.transition="all 1.5s ease-out";
+        document.body.appendChild(s);
+        setTimeout(()=>{
+            s.style.transform = `translateY(-${Math.random()*400 + 250}px) translateX(${Math.random()*300 - 150}px) scale(1.2)`;
+            s.style.opacity = 0;
+        },10);
+        setTimeout(()=>s.remove(),1500);
+    }
+}
+
+// ===== Music =====
+function playMusic(){
+    var bgm = document.getElementById("bgm");
+    bgm.play().catch(()=>console.log("Tap to play music."));
+}
+
+// ===== Celebrate Button Click =====
+document.getElementById("celebrateBtn").addEventListener("click", function(){
+    playMusic();
+    createFirework();
+    setInterval(createFirework,2000); // repeat fireworks every 2s
+});
+</script>
+
+</body>
+</html>
